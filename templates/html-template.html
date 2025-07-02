@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{TITLE}} - Documentation</title>
+    <meta name="description" content="AI-generated documentation for {{TITLE}}">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #6c757d;
+            --success-color: #28a745;
+            --info-color: #17a2b8;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            --mono-font: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            --border-radius: 8px;
+            --box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: var(--font-family);
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            min-height: 100vh;
+            box-shadow: var(--box-shadow);
+            position: relative;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), #0056b3);
+            color: white;
+            padding: 40px 30px;
+            margin: -20px -20px 30px -20px;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header .meta {
+            font-size: 0.95em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header .meta code {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: var(--mono-font);
+        }
+        
+        .ai-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            z-index: 2;
+        }
+        
+        .description {
+            background: var(--light-color);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            margin-bottom: 30px;
+            border-left: 4px solid var(--primary-color);
+            font-size: 1.1em;
+        }
+        
+        .toc {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .toc h2 {
+            color: var(--dark-color);
+            margin-bottom: 20px;
+            font-size: 1.4em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .toc h2::before {
+            content: '📚';
+            font-size: 1.2em;
+        }
+        
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .toc li {
+            margin-bottom: 8px;
+        }
+        
+        .toc a {
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: var(--transition);
+            display: inline-block;
+            font-weight: 500;
+        }
+        
+        .toc a:hover {
+            background-color: var(--light-color);
+            text-decoration: none;
+            transform: translateX(5px);
+        }
+        
+        .section {
+            margin-bottom: 50px;
+        }
+        
+        .section h2 {
+            color: var(--dark-color);
+            font-size: 2em;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .section h2.functions::before { content: '🔧'; }
+        .section h2.classes::before { content: '🏗️'; }
+        .section h2.exports::before { content: '📦'; }
+        .section h2.usage::before { content: '💡'; }
+        .section h2.notes::before { content: '📝'; }
+        
+        .function, .class, .export {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .function:hover, .class:hover, .export:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        
+        .function h3, .class h3, .export h3 {
+            color: var(--dark-color);
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            font-family: var(--mono-font);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .function h3::before { content: '⚡'; }
+        .class h3::before { content: '🏛️'; }
+        .export h3::before { content: '📤'; }
+        
+        .signature {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border: 1px solid #dee2e6;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin: 20px 0;
+            font-family: var(--mono-font);
+            font-size: 0.95em;
+            overflow-x: auto;
+            position: relative;
+        }
+        
+        .signature::before {
+            content: '📋';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            opacity: 0.5;
+        }
+        
+        .parameters, .returns {
+            margin: 20px 0;
+        }
+        
+        .parameters h4, .returns h4 {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .parameters h4::before { content: '📥'; }
+        .returns h4::before { content: '📤'; }
+        
+        .param {
+            background: linear-gradient(90deg, #f8f9fa, white);
+            border-left: 4px solid var(--success-color);
+            padding: 15px 20px;
+            margin-bottom: 12px;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            transition: var(--transition);
+        }
+        
+        .param:hover {
+            border-left-color: var(--primary-color);
+            transform: translateX(3px);
+        }
+        
+        .param-name {
+            font-weight: bold;
+            color: var(--dark-color);
+            font-family: var(--mono-font);
+            font-size: 1.05em;
+        }
+        
+        .param-type {
+            color: #6f42c1;
+            font-family: var(--mono-font);
+            font-size: 0.9em;
+            background: rgba(111, 66, 193, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 8px;
+        }
+        
+        .example {
+            background: linear-gradient(135deg, #2d3748, #1a202c);
+            color: #e2e8f0;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin: 20px 0;
+            overflow-x: auto;
+            position: relative;
+        }
+        
+        .example::before {
+            content: '💻 Example';
+            position: absolute;
+            top: 8px;
+            right: 15px;
+            font-size: 0.8em;
+            opacity: 0.7;
+            background: rgba(255,255,255,0.1);
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        
+        .example pre {
+            font-family: var(--mono-font);
+            font-size: 0.9em;
+            white-space: pre-wrap;
+            line-height: 1.4;
+            margin-top: 20px;
+        }
+        
+        .methods {
+            margin-top: 25px;
+            border-top: 2px solid #e9ecef;
+            padding-top: 25px;
+        }
+        
+        .method {
+            border-left: 4px solid var(--info-color);
+            padding-left: 25px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .method::before {
+            content: '🔧';
+            position: absolute;
+            left: -12px;
+            top: 0;
+            background: white;
+            padding: 2px;
+        }
+        
+        .footer {
+            margin-top: 60px;
+            padding: 30px 0;
+            border-top: 2px solid #e9ecef;
+            text-align: center;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            margin-left: -20px;
+            margin-right: -20px;
+            margin-bottom: -20px;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+        }
+        
+        .footer p {
+            color: var(--secondary-color);
+            font-size: 0.95em;
+            margin-bottom: 10px;
+        }
+        
+        .footer .auto-docs-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+            transition: var(--transition);
+        }
+        
+        .footer .auto-docs-link:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+        
+        code {
+            background: rgba(111, 66, 193, 0.1);
+            color: #6f42c1;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-family: var(--mono-font);
+            font-size: 0.9em;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            font-size: 0.75em;
+            font-weight: bold;
+            border-radius: 12px;
+            text-transform: uppercase;
+            margin-right: 8px;
+            letter-spacing: 0.5px;
+        }
+        
+        .badge-async { background: var(--success-color); color: white; }
+        .badge-static { background: var(--info-color); color: white; }
+        .badge-private { background: var(--danger-color); color: white; }
+        .badge-protected { background: var(--warning-color); color: #212529; }
+        
+        .stats-bar {
+            background: var(--light-color);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            min-width: 120px;
+        }
+        
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: var(--primary-color);
+            display: block;
+        }
+        
+        .stat-label {
+            color: var(--secondary-color);
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        @media (max-width: 768px) {
+            .container { 
+                padding: 10px; 
+                margin: 0;
+            }
+            .header { 
+                margin: -10px -10px 20px -10px;
+                padding: 30px 20px;
+            }
+            .header h1 { font-size: 2em; }
+            .function, .class, .export { padding: 20px; }
+            .signature { font-size: 0.8em; }
+            .stats-bar { flex-direction: column; text-align: center; }
+        }
+        
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0056b3;
+        }
+        
+        /* Print styles */
+        @media print {
+            .toc, .ai-badge { display: none; }
+            .header { background: white !important; color: black !important; }
+            .container { box-shadow: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="ai-badge">🤖 AI Generated</div>
+            <h1>{{TITLE}}</h1>
+            <div class="meta">
+                <strong>File:</strong> <code>{{FILE_PATH}}</code><br>
+                <strong>Language:</strong> {{LANGUAGE}}
+            </div>
+        </div>
+        
+        <div class="description">
+            {{DESCRIPTION}}
+        </div>
+        
+        {{TABLE_OF_CONTENTS}}
+        
+        {{FUNCTIONS}}
+        
+        {{CLASSES}}
+        
+        {{EXPORTS}}
+        
+        <div class="section">
+            {{USAGE}}
+        </div>
+        
+        <div class="section">
+            {{NOTES}}
+        </div>
+        
+        <div class="footer">
+            <p>Generated by <a href="https://github.com/auto-docs/auto-docs" class="auto-docs-link">Auto-Docs</a> on {{GENERATED_DATE}}</p>
+            <p>🤖 AI-powered documentation that doesn't suck</p>
+        </div>
+    </div>
+</body>
+</html>
