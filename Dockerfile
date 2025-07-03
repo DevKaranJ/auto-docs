@@ -16,9 +16,8 @@ COPY . .
 # Build the application
 RUN npm run build
 
-# Expose ports
-EXPOSE 3000
-EXPOSE 5173
+# Expose the backend server port
+EXPOSE 5000
 
-# Start the application
-CMD ["npm", "run", "dev"]
+# Start the application in production mode
+CMD ["npm", "start"]
