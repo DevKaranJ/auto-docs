@@ -1,11 +1,5 @@
 # Auto-Docs: AI-Powered Documentation Generator
 
-[![Build Status](https://img.shields.io/github/actions/workflow/status/yourusername/yourrepo/ci.yml?branch=main&style=flat-square)](https://github.com/yourusername/yourrepo/actions)
-[![Docker](https://img.shields.io/docker/pulls/yourdockerhubuser/yourimage?style=flat-square)](https://hub.docker.com/r/yourdockerhubuser/yourimage)
-[![Site Status](https://img.shields.io/website-up-down-green-red/http/yourwebsite.com.svg?style=flat-square)](http://yourwebsite.com)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
-[![npm version](https://img.shields.io/npm/v/your-package-name?style=flat-square)](https://www.npmjs.com/package/your-package-name)
-
 Auto-Docs is a production-ready, open-source AI-powered documentation generator that automatically creates beautiful, professional documentation from codebases using OpenAI GPT-4.
 
 ## Features

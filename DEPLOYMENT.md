@@ -11,7 +11,7 @@ This guide covers deploying Auto-Docs for local development, production, and Git
 
 ### 2. Clone and Setup
 ```bash
-git clone <repository-url>
+git clone <https://github.com/DevKaranJ/auto-docs>
 cd auto-docs
 npm install
 ```
