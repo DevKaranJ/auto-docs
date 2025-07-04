@@ -24,7 +24,7 @@ Auto-Docs is a production-ready, open-source AI-powered documentation generator 
 
 1. **Clone the repository:**
 ```bash
-git clone <your-repo-url>
+git clone <https://github.com/DevKaranJ/auto-docs.git>
 cd auto-docs
 ```
 
